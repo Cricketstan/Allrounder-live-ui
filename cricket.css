@@ -252,3 +252,30 @@
     transition: none;
   }
 }
+
+/* ==========================================
+   CRICKET — FANCODE STYLE CAPTIONS
+   ========================================== */
+
+/* First line: Team A VS Team B */
+#cricket .cricket-live-card .caption > span:first-child {
+  display: block;
+  color: #e2e3e8 !important;
+  font-weight: 600 !important;
+  opacity: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Second line: Series name and match time */
+#cricket .cricket-live-card .caption > span:nth-child(2) {
+  display: block;
+  color: #93969f !important;
+  font-weight: 400 !important;
+  opacity: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

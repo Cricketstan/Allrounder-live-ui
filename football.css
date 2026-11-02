@@ -184,3 +184,16 @@
   .as-team-placeholder { font-size: clamp(10px, 2vw, 15px); }
 }
 
+/* Football — first caption line */
+
+.allsports-section .caption > span:first-child {
+  color: #e2e3e8;
+  font-weight: 600;
+}
+
+/* Football — second caption line */
+
+.allsports-section .caption > span:nth-child(2) {
+  color: #93969f;
+  font-weight: 400;
+}

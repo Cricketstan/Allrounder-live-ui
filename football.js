@@ -63,49 +63,35 @@
     if (!/(?:Z|[+-]\d{2}:?\d{2})$/i.test(text)) text += 'Z';
     return Date.parse(text);
   }
-
-  /* ---- start time, shown in IST as "Today, 8:00 PM" / "Tomorrow" / "12 Nov" ---- */
-  const IST = 19800000; // UTC+5:30 in ms
-  const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  function startStamp(e) {
-    const s = utc(e.startTimeUTC);
-    if (Number.isFinite(s)) return s;
+  function time(e) {
+    const stamp = utc(e.startTimeUTC);
+    if (Number.isFinite(stamp)) {
+      const parts = new Intl.DateTimeFormat('en-GB', {
+        timeZone:'Asia/Kolkata', day:'2-digit', month:'2-digit',
+        hour:'numeric', minute:'2-digit', hour12:true
+      }).formatToParts(new Date(stamp));
+      const p = Object.fromEntries(parts.map(x=>[x.type,x.value]));
+      return p.day+'/'+p.month+' · '+Number(p.hour)+':'+p.minute+' '+p.dayPeriod.toUpperCase()+' IST';
+    }
     const m = String(e.startTimeIST || '').match(/(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/);
-    return m ? Date.UTC(+m[1], +m[2]-1, +m[3], +m[4], +m[5]) - IST : NaN;
+    if (!m) return e.startTimeIST || 'Time TBA';
+    const h = Number(m[4]);
+    return m[3]+'/'+m[2]+' · '+(h%12 || 12)+':'+m[5]+' '+(h>=12?'PM':'AM')+' IST';
   }
-  function when(e) {
-    const stamp = startStamp(e);
-    if (!Number.isFinite(stamp)) return {day:'', clock:'', full: e.startTimeIST || 'Time TBA'};
-    const d = new Date(stamp + IST);
-    const h = d.getUTCHours(), m = String(d.getUTCMinutes()).padStart(2, '0');
-    const clock = (h % 12 || 12) + ':' + m + ' ' + (h >= 12 ? 'PM' : 'AM');
-    const diff = Math.floor((stamp + IST) / 864e5) - Math.floor((Date.now() + IST) / 864e5);
-    const day = diff === 0 ? 'Today' : diff === 1 ? 'Tomorrow' : diff === -1 ? 'Yesterday'
-      : d.getUTCDate() + ' ' + MON[d.getUTCMonth()];
-    return {day, clock, full: day + ', ' + clock + ' IST'};
-  }
-
   function card(ev) {
     const e = ev.event || {}, state = statusOf(ev);
     const name = e.name || ev.title || 'Sports Event';
     const category = e.category || ev.cat || 'Football';
     const slug = ev.slug || '';
     const href = 'football?slug='+encodeURIComponent(slug);
-    const w = when(e);
-    let main, sub = '';
-    if (state === 'live') main = 'Live now';
-    else if (state === 'ended') { main = 'Full time'; sub = w.day; }
-    else if (w.day) { main = w.day + ', ' + w.clock; sub = 'IST'; }
-    else main = w.full;
-    const plain = main + (sub ? ' ' + sub : '');
-    return '<a class="card allsports-card" href="'+esc(href)+'" data-slug="'+esc(slug)+'" aria-label="'+esc(name+' — '+plain)+'">' +
+    const stateText = {live:'Live',upcoming:'Upcoming',ended:'Ended',unknown:'Time TBA'}[state];
+    return '<a class="card allsports-card" href="'+esc(href)+'" data-slug="'+esc(slug)+'" aria-label="'+esc(name+' — '+stateText)+'">' +
       '<div class="thumb allsports-thumb"><div class="as-poster-content">' +
       '<div class="as-event-name" title="'+esc(name)+'">'+esc(name)+'</div>' +
       '<div class="as-teams">'+team(e.teamA || 'Team A',e,'A')+'<div class="as-vs">VS</div>'+team(e.teamB || 'Team B',e,'B')+'</div></div>' +
       (state==='live'?'<span class="badge">LIVE</span>':state==='upcoming'?'<span class="as-upcoming-icon" role="img" aria-label="Upcoming match" title="Upcoming match"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22a2.5 2.5 0 0 0 2.5-2.5h-5A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5-6.7V3a2 2 0 0 0-4 0v1.3A7 7 0 0 0 5 11v5l-2 2v1h18v-1z"/></svg></span>':'')+'</div>' +
-      '<div class="caption">' +
-      '<span class="as-state" title="'+esc(plain)+'">'+esc(main)+(sub ? ' <small>'+esc(sub)+'</small>' : '')+'</span>' +
-      '<span class="as-meta" title="'+esc(category+' · '+name)+'">'+esc(name)+'</span>' +
+      '<div class="caption"><span title="'+esc(name)+'">'+esc(name)+'</span>' +
+      '<span class="as-meta" title="'+esc(category+' · '+time(e))+'">'+esc(category+' · '+time(e))+'</span>' +
       '</div></a>';
   }
   function updateArrows() {

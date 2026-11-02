@@ -1,173 +1,119 @@
-/* =====================================================================
-   FOOTBALL · premium card metadata
-   Paste at the very END of football.css (or load it after football.css).
-   Scoped to .allsports-section only, so Cricket and Willow are untouched.
-   ===================================================================== */
-
-.allsports-section {
-  --as-live: #ff6a1f;
-  --as-soon: #5b8cff;
-  --as-done: #6c7389;
-  --as-ink: #f1f3f8;
-  --as-mute: #8d93a6;
+/* Card dimensions, captions, arrows and LIVE badges inherit All Live Now. */
+.allsports-section .allsports-thumb {
+  background: radial-gradient(ellipse at 8% 0%, #315e62 0%, transparent 60%),
+    radial-gradient(ellipse at 100% 100%, #262f54 0%, transparent 65%), #101820;
+  isolation: isolate;
 }
-
-/* Room for the shadow and press/hover lift so the rail never clips it.
-   Padding and negative margin cancel out, so layout does not shift. */
-.allsports-section .rail {
-  padding-top: 6px;
-  padding-bottom: 14px;
-  margin-top: -6px;
-  margin-bottom: -14px;
-}
-
-/* ---------- card shell: softer corners, hairline gradient edge ---------- */
-.allsports-section .card {
-  border: 1px solid transparent;
-  border-radius: 14px;
-  background:
-    linear-gradient(180deg, #161b27, #0f131c) padding-box,
-    linear-gradient(155deg, #ffffff30, #ffffff0a 40%, #ffffff06 100%) border-box;
-  box-shadow: 0 18px 30px -22px #000;
-}
-.allsports-card {
-  transition:
-    transform 0.35s var(--out),
-    box-shadow 0.35s var(--out);
-}
-.allsports-card:active {
-  transform: scale(0.985);
-}
-@media (hover: hover) and (pointer: fine) {
-  .allsports-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 26px 38px -22px #000;
-  }
-}
-
-/* ---------- caption: state first, series second, colour-coded rail ---------- */
-.allsports-card .caption {
-  --sc: var(--as-done);
-  position: relative;
+.as-poster-content {
+  position: absolute;
+  inset: 6% 6% 17%;
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  padding: 13px 14px 14px 27px;
-  line-height: 1.25;
-  background: linear-gradient(90deg, color-mix(in srgb, var(--sc) 10%, transparent), transparent 62%);
+  justify-content: center;
+  gap: 5%;
 }
-.allsports-card:has(.badge) .caption {
-  --sc: var(--as-live);
+.as-event-name {
+  text-align: center;
+  color: #dde2e7;
+  font-size: clamp(10px, 2.8vw, 16px);
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.allsports-card:has(.as-upcoming-icon) .caption {
-  --sc: var(--as-soon);
-}
-
-/* the state rail: orange = live, blue = upcoming, grey = finished */
-.allsports-card .caption::before {
-  content: "";
-  position: absolute;
-  left: 14px;
-  top: 14px;
-  bottom: 15px;
-  width: 3px;
-  border-radius: 3px;
-  background: linear-gradient(180deg, var(--sc), color-mix(in srgb, var(--sc) 30%, transparent));
-}
-.allsports-card:has(.badge) .caption::before {
-  box-shadow: 0 0 14px -2px var(--sc);
-}
-
-.allsports-section .as-state {
-  order: 1;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: -0.005em;
-  color: var(--as-ink);
-  font-variant-numeric: tabular-nums;
-}
-.allsports-section .as-state small {
-  margin-left: 0.3em;
-  font-size: 0.8em;
-  font-weight: 500;
-  color: var(--as-mute);
-}
-.allsports-section .as-meta {
-  order: 2;
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--as-mute);
-}
-
-/* ---------- thumbnail overlays: glass instead of flat white ---------- */
-.allsports-card .badge {
-  left: 10px;
-  bottom: 10px;
-  display: inline-flex;
+.as-teams {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18% minmax(0, 1fr);
   align-items: center;
-  gap: 6px;
-  padding: 5px 10px 5px 8px;
-  border-radius: 999px;
-  border: 1px solid #ffffff26;
-  background: #08090d8c;
-  -webkit-backdrop-filter: blur(10px) saturate(1.4);
-  backdrop-filter: blur(10px) saturate(1.4);
-  color: #fff;
-  font-size: 11px;
-  letter-spacing: 0.04em;
+  text-align: center;
 }
-.allsports-card .badge:before {
-  margin: 0;
-  vertical-align: 0;
-  background: #ff4b5c;
-  animation: as-ping 1.8s ease-out infinite;
-}
-.allsports-card .as-upcoming-icon {
-  left: 10px;
-  bottom: 10px;
-  width: 28px;
-  height: 28px;
+.as-team { min-width: 0; }
+.as-team-image-wrap {
+  position: relative;
+  width: 58%;
+  aspect-ratio: 1;
+  margin: 0 auto 4px;
+  border: 1px solid #ffffff38;
   border-radius: 50%;
-  border: 1px solid #ffffff26;
-  background: #08090d8c;
-  -webkit-backdrop-filter: blur(10px) saturate(1.4);
-  backdrop-filter: blur(10px) saturate(1.4);
-  color: #fff;
+  background: linear-gradient(140deg, #ffffff22, #ffffff05);
+  box-shadow: inset 0 2px 0 #ffffff19;
+  overflow: hidden;
 }
-@keyframes as-ping {
-  0% {
-    box-shadow: 0 0 0 0 rgba(255, 75, 92, 0.55);
-  }
-  70%,
-  100% {
-    box-shadow: 0 0 0 7px rgba(255, 75, 92, 0);
-  }
+.as-team-placeholder, .as-team-image-wrap img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
+.as-team-placeholder {
+  display: grid;
+  place-items: center;
+  color: #e1e6eb;
+  font-weight: 700;
+  font-size: clamp(12px, 3vw, 22px);
+}
+.as-team-image-wrap img { object-fit: contain; padding: 12%; visibility: hidden; }
+.as-team-image-wrap.has-image .as-team-placeholder { visibility: hidden; }
+.as-team-name {
+  display: block;
+  color: #e2e3e8;
+  font-size: clamp(10px, 2.8vw, 17px);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.as-vs {
+  display: grid;
+  place-items: center;
+  width: 80%;
+  aspect-ratio: 1;
+  margin: auto;
+  background: #ffffff0c;
+  border: 1px solid #ffffff20;
+  border-radius: 50%;
+  font-size: clamp(11px, 2.8vw, 18px);
+  font-weight: 700;
+  color: #cdd1db;
+}
+.allsports-section .caption > span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.allsports-section .as-meta { font-size: inherit; }
+.allsports-section .as-state { color: #b7bbc5; }
+.allsports-card:focus-visible { outline: 2px solid #f55505; outline-offset: -2px; }
+.allsports-empty { padding: 24px 0; color: #93969f; }
+.as-skeleton-thumb {
+  background: linear-gradient(100deg, #121620 25%, #222938 50%, #121620 75%);
+  background-size: 200% 100%;
+  animation: as-loading 1.6s ease-in-out infinite;
+}
+.as-skeleton-line { height: 10px; background: #ffffff12; margin: 5px 0; width: 80%; }
+.as-skeleton-line:last-child { width: 55%; }
+@keyframes as-loading { to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .as-skeleton-thumb { animation: none; } }
 
-/* ---------- tablet + desktop ---------- */
+.as-upcoming-icon {
+  position: absolute; bottom: 7px; left: 8px; z-index: 1;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 27px; height: 25px; padding: 4px;
+  border-radius: 2px; background: #f1f0ec; color: #222935;
+}
+.as-upcoming-icon svg { width: 17px; height: 17px; fill: currentColor; }
+.allsports-section .live-rail .arrow {
+  display: flex; position: absolute; align-items: center; justify-content: center;
+  top: var(--as-arrow-top, 65px); width: 36px; height: 42px;
+  padding: 0; border: 0; background: none; color: #fff; z-index: 4;
+  filter: drop-shadow(0 1px 5px #000c);
+}
+.allsports-section .live-rail .arrow svg { width: 24px; height: 24px; }
+.allsports-section .live-rail .prev { left: -14px; }
+.allsports-section .live-rail .next { right: -14px; }
 @media (min-width: 768px) {
-  .allsports-card .caption {
-    gap: 4px;
-    padding: 15px 18px 17px 31px;
-  }
-  .allsports-card .caption::before {
-    left: 18px;
-    top: 16px;
-    bottom: 17px;
-  }
-  .allsports-section .as-state {
-    font-size: 15.5px;
-  }
-  .allsports-section .as-meta {
-    font-size: 13px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .allsports-card {
-    transition: none;
-  }
-  .allsports-card .badge:before {
-    animation: none;
-  }
+  .allsports-section .live-rail .arrow { width: 48px; height: 48px; }
+  .allsports-section .live-rail .arrow svg { width: 26px; height: 26px; }
+  .allsports-section .live-rail .prev { left: calc(8px - 4vw); }
+  .allsports-section .live-rail .next { right: calc(8px - 4vw); }
 }

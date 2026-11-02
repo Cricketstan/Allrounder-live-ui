@@ -1,0 +1,194 @@
+
+/* =====================================================
+   FANCODE LIVE — MATCHDEKHO
+   Same card layout as Cricket and Willow.
+   Poster: top-center crop.
+   Caption: exactly two lines.
+   ===================================================== */
+
+#fancodeSection .fancode-live-card {
+  display: block;
+  padding: 0;
+  text-align: left;
+  font: inherit;
+  border-radius: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+#fancodeSection .fancode-live-card:disabled {
+  cursor: wait;
+}
+
+#fancodeSection .fancode-thumb {
+  position: relative;
+  background: #121620;
+  overflow: hidden;
+}
+
+#fancodeSection .fancode-thumb img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+
+  /* Crop image from TOP MIDDLE */
+  object-position: center top;
+}
+
+#fancodeSection .fc-no-poster {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #93969f;
+  font-size: 12px;
+}
+
+/* Two-line caption */
+
+#fancodeSection .caption {
+  overflow: hidden;
+}
+
+#fancodeSection .caption > span {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#fancodeSection .fc-match-title {
+  color: #e2e3e8;
+  font-weight: 600;
+}
+
+#fancodeSection .fc-series {
+  color: #93969f;
+  font-weight: 400;
+}
+
+/* Upcoming bell, same as Cricket */
+
+#fancodeSection .fc-upcoming-icon {
+  position: absolute;
+  bottom: 7px;
+  left: 8px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 27px;
+  height: 25px;
+  padding: 4px;
+  border-radius: 2px;
+  background: #f1f0ec;
+  color: #222935;
+}
+
+#fancodeSection .fc-upcoming-icon svg {
+  width: 17px;
+  height: 17px;
+  fill: currentColor;
+}
+
+/* Loading skeleton */
+
+#fancodeSection .fc-skeleton-thumb {
+  background: linear-gradient(
+    100deg,
+    #121620 25%,
+    #222938 50%,
+    #121620 75%
+  );
+  background-size: 200% 100%;
+  animation: fc-loading 1.6s ease-in-out infinite;
+}
+
+#fancodeSection .fc-skeleton-line {
+  height: 10px;
+  margin: 5px 0;
+  width: 80%;
+  background: #ffffff12;
+}
+
+#fancodeSection .fc-skeleton-line:last-child {
+  width: 55%;
+}
+
+@keyframes fc-loading {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* Empty state */
+
+#fancodeSection .fc-empty {
+  padding: 24px 0;
+  color: #93969f;
+}
+
+#fancodeSection .fc-retry {
+  margin-left: 8px;
+  padding: 5px 10px;
+  border: 1px solid #ffffff30;
+  border-radius: 4px;
+  background: #ffffff0d;
+  color: inherit;
+}
+
+/* Landscape / desktop arrows */
+
+#fancodeSection .live-rail > .arrow {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 5;
+  width: 48px;
+  height: 48px;
+  top: var(--fc-arrow-top, 70px);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #fff;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  filter: drop-shadow(0 1px 5px #000c);
+}
+
+#fancodeSection .live-rail > .prev {
+  left: 0;
+}
+
+#fancodeSection .live-rail > .next {
+  right: 0;
+}
+
+#fancodeSection .live-rail > .arrow svg {
+  width: 26px;
+  height: 26px;
+}
+
+#fancodeSection .fancode-live-card:focus-visible,
+#fancodeSection .arrow:focus-visible {
+  outline: 2px solid #f55505;
+  outline-offset: -2px;
+}
+
+/* Hide arrows in portrait mobile */
+
+@media (max-width: 767px) and (orientation: portrait) {
+  #fancodeSection .live-rail > .arrow {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #fancodeSection .fc-skeleton-thumb {
+    animation: none;
+  }
+}

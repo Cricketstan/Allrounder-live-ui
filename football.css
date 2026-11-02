@@ -117,3 +117,49 @@
   .allsports-section .live-rail .prev { left: calc(8px - 4vw); }
   .allsports-section .live-rail .next { right: calc(8px - 4vw); }
 }
+
+/* ==========================================
+   ALL SPORTS — LANDSCAPE CARD SIZE FIX
+   Show 2.5 cards in a single frame
+   ========================================== */
+
+@media (orientation: landscape) and (max-height: 600px) {
+
+  .allsports-section {
+    --as-card-gap: 12px;
+    --as-side-padding: 16px;
+  }
+
+  .allsports-section .allsports-card {
+    flex: 0 0 calc(
+      (100vw - 32px - 24px) / 2.5
+    ) !important;
+
+    width: calc(
+      (100vw - 32px - 24px) / 2.5
+    ) !important;
+
+    min-width: 0 !important;
+    max-width: none !important;
+    box-sizing: border-box;
+  }
+
+  .allsports-section .allsports-thumb {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .allsports-section .as-event-name {
+    font-size: clamp(10px, 1.7vw, 14px);
+  }
+
+  .allsports-section .as-team-name {
+    font-size: clamp(10px, 1.6vw, 14px);
+  }
+
+  .allsports-section .as-vs {
+    font-size: clamp(10px, 1.6vw, 15px);
+  }
+}
+

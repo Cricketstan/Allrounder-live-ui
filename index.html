@@ -10,6 +10,10 @@
     <script defer src="football.js"></script>
     <link rel="stylesheet" href="cricket.css">
     <script defer src="cricket.js"></script>
+    
+<link rel="stylesheet" href="willow.css">
+<script defer src="willow.js"></script>
+
     <style>
       @font-face {
         font-family: "Outfit";
@@ -1774,6 +1778,70 @@
     </button>
   </div>
       </section>
+      
+<!-- ====== WILLOW LIVE ====== -->
+<section
+  class="live willow-live-section"
+  id="willow"
+  aria-label="Willow live matches"
+>
+  <h2 class="section-title wl-heading">
+    Willow
+    <span
+      id="liveCountBadge"
+      class="wl-count"
+      hidden
+    ></span>
+  </h2>
+
+  <div class="live-rail">
+
+    <div
+      class="rail"
+      id="willowLiveTrack"
+      aria-busy="false"
+    ></div>
+
+    <button
+      type="button"
+      class="arrow prev"
+      id="willowLiveArrowLeft"
+      aria-label="Previous Willow matches"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="m15 4-8 8 8 8"/>
+      </svg>
+    </button>
+
+    <button
+      type="button"
+      class="arrow next"
+      id="willowLiveArrowRight"
+      aria-label="Next Willow matches"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="m9 4 8 8-8 8"/>
+      </svg>
+    </button>
+
+  </div>
+</section>
+<!-- ====== END WILLOW ====== -->
+
       
     </main>
     <div class="scrim" id="scrim"></div>

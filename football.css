@@ -162,4 +162,25 @@
     font-size: clamp(10px, 1.6vw, 15px);
   }
 }
+/* Landscape phones only: ~2.5 cards visible per frame */
+@media (orientation: landscape) and (max-height: 500px) {
+  .allsports-section .live-rail {
+    --as-gap: 10px;        /* set to your current card gap */
+    --as-arrow-top: 45px;  /* arrows follow the smaller thumbnails */
+  }
+
+  .allsports-section .live-rail .allsports-card {
+    /* 2 full cards + half card + 2 gaps = 100% */
+    flex: 0 0 calc((100% - 2 * var(--as-gap)) / 2.5);
+    width: calc((100% - 2 * var(--as-gap)) / 2.5);
+    min-width: 0;
+    max-width: none;
+  }
+
+  /* vw-based clamps get too large in landscape, so scale text down */
+  .as-event-name,
+  .as-team-name,
+  .as-vs { font-size: clamp(9px, 1.6vw, 12px); }
+  .as-team-placeholder { font-size: clamp(10px, 2vw, 15px); }
+}
 

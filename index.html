@@ -1637,6 +1637,50 @@
       @media (max-width: 767px) and (orientation: portrait) {
         #football .live-rail > .arrow { display: none !important; }
       }
+      
+/* ==========================================
+   FOOTBALL LANDSCAPE — EXACT 2.5 CARDS
+   Does not affect portrait or other sections
+   ========================================== */
+
+@media (orientation: landscape) and (max-width: 1199px) {
+
+  #football #allsportsTrack {
+    display: flex;
+    gap: 7px;
+  }
+
+  #football #allsportsTrack > * {
+    flex: 0 0 calc((100% - 14px) / 2.5) !important;
+    width: calc((100% - 14px) / 2.5) !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    box-sizing: border-box;
+  }
+
+  #football #allsportsTrack .thumb,
+  #football #allsportsTrack .allsports-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+  }
+}
+
+/* Landscape devices 768px and wider */
+@media (orientation: landscape)
+       and (min-width: 768px)
+       and (max-width: 1199px) {
+
+  #football #allsportsTrack {
+    gap: 18px;
+  }
+
+  #football #allsportsTrack > * {
+    flex: 0 0 calc((100% - 36px) / 2.5) !important;
+    width: calc((100% - 36px) / 2.5) !important;
+  }
+}
+
     </style></head
   ><body
     ><div class="ambient" aria-hidden="true"

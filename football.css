@@ -1,21 +1,9 @@
-/* Same card dimensions and LIVE badge as All Live Now. */
-
+/* Card dimensions, captions, arrows and LIVE badges inherit All Live Now. */
 .allsports-section .allsports-thumb {
-  background:
-    radial-gradient(
-      ellipse at 8% 0%,
-      #315e62 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse at 100% 100%,
-      #262f54 0%,
-      transparent 65%
-    ),
-    #101820;
+  background: radial-gradient(ellipse at 8% 0%, #315e62 0%, transparent 60%),
+    radial-gradient(ellipse at 100% 100%, #262f54 0%, transparent 65%), #101820;
   isolation: isolate;
 }
-
 .as-poster-content {
   position: absolute;
   inset: 6% 6% 17%;
@@ -24,9 +12,7 @@
   justify-content: center;
   gap: 5%;
 }
-
 .as-event-name {
-  flex-shrink: 0;
   text-align: center;
   color: #dde2e7;
   font-size: clamp(10px, 2.8vw, 16px);
@@ -35,19 +21,13 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 .as-teams {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 18% minmax(0, 1fr);
   align-items: center;
   text-align: center;
 }
-
-.as-team {
-  min-width: 0;
-}
-
-/* Slightly larger team circles and logos. */
+.as-team { min-width: 0; }
 .as-team-image-wrap {
   position: relative;
   width: 58%;
@@ -55,23 +35,16 @@
   margin: 0 auto 4px;
   border: 1px solid #ffffff38;
   border-radius: 50%;
-  background: linear-gradient(
-    140deg,
-    #ffffff22,
-    #ffffff05
-  );
+  background: linear-gradient(140deg, #ffffff22, #ffffff05);
   box-shadow: inset 0 2px 0 #ffffff19;
   overflow: hidden;
 }
-
-.as-team-placeholder,
-.as-team-image-wrap img {
+.as-team-placeholder, .as-team-image-wrap img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
 }
-
 .as-team-placeholder {
   display: grid;
   place-items: center;
@@ -79,17 +52,8 @@
   font-weight: 700;
   font-size: clamp(12px, 3vw, 22px);
 }
-
-.as-team-image-wrap img {
-  object-fit: contain;
-  padding: 12%;
-  visibility: hidden;
-}
-
-.as-team-image-wrap.has-image .as-team-placeholder {
-  visibility: hidden;
-}
-
+.as-team-image-wrap img { object-fit: contain; padding: 12%; visibility: hidden; }
+.as-team-image-wrap.has-image .as-team-placeholder { visibility: hidden; }
 .as-team-name {
   display: block;
   color: #e2e3e8;
@@ -99,7 +63,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 .as-vs {
   display: grid;
   place-items: center;
@@ -113,154 +76,44 @@
   font-weight: 700;
   color: #cdd1db;
 }
-
-/* Exactly two caption lines. */
 .allsports-section .caption > span {
   display: block;
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-.allsports-section .as-meta {
-  font-size: inherit;
-}
-
-/* Upcoming bell in the same lower-left position as LIVE. */
-.as-upcoming-icon {
-  position: absolute;
-  bottom: 7px;
-  left: 8px;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 27px;
-  height: 25px;
-  padding: 4px;
-  border-radius: 2px;
-  background: #f1f0ec;
-  color: #222935;
-}
-
-.as-upcoming-icon svg {
-  display: block;
-  width: 17px;
-  height: 17px;
-  fill: currentColor;
-}
-
-/* Side arrows are visible on mobile and desktop. */
-.allsports-section .live-rail .as-arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: var(--as-arrow-top, 80px);
-  z-index: 4;
-  width: 36px;
-  height: 42px;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: #fff;
-  opacity: 0.95;
-  filter: drop-shadow(0 1px 5px #000c);
-  transition:
-    transform 0.25s,
-    opacity 0.25s;
-}
-
-.allsports-section .live-rail .as-arrow svg {
-  width: 24px;
-  height: 24px;
-}
-
-.allsports-section .live-rail .as-arrow.prev {
-  left: -14px;
-}
-
-.allsports-section .live-rail .as-arrow.next {
-  right: -14px;
-}
-
-.allsports-section .as-arrow:hover {
-  opacity: 1;
-}
-
-.allsports-section .as-arrow:focus-visible,
-.allsports-card:focus-visible {
-  outline: 2px solid #f55505;
-  outline-offset: -2px;
-}
-
-.allsports-empty {
-  padding: 24px 0;
-  color: #93969f;
-}
-
+.allsports-section .as-meta { font-size: inherit; }
+.allsports-section .as-state { color: #b7bbc5; }
+.allsports-card:focus-visible { outline: 2px solid #f55505; outline-offset: -2px; }
+.allsports-empty { padding: 24px 0; color: #93969f; }
 .as-skeleton-thumb {
-  background: linear-gradient(
-    100deg,
-    #121620 25%,
-    #222938 50%,
-    #121620 75%
-  );
+  background: linear-gradient(100deg, #121620 25%, #222938 50%, #121620 75%);
   background-size: 200% 100%;
   animation: as-loading 1.6s ease-in-out infinite;
 }
+.as-skeleton-line { height: 10px; background: #ffffff12; margin: 5px 0; width: 80%; }
+.as-skeleton-line:last-child { width: 55%; }
+@keyframes as-loading { to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .as-skeleton-thumb { animation: none; } }
 
-.as-skeleton-line {
-  height: 10px;
-  background: #ffffff12;
-  margin: 5px 0;
-  width: 80%;
+.as-upcoming-icon {
+  position: absolute; bottom: 7px; left: 8px; z-index: 1;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 27px; height: 25px; padding: 4px;
+  border-radius: 2px; background: #f1f0ec; color: #222935;
 }
-
-.as-skeleton-line:last-child {
-  width: 55%;
+.as-upcoming-icon svg { width: 17px; height: 17px; fill: currentColor; }
+.allsports-section .live-rail .arrow {
+  display: flex; position: absolute; align-items: center; justify-content: center;
+  top: var(--as-arrow-top, 65px); width: 36px; height: 42px;
+  padding: 0; border: 0; background: none; color: #fff; z-index: 4;
+  filter: drop-shadow(0 1px 5px #000c);
 }
-
-@keyframes as-loading {
-  to {
-    background-position: -200% 0;
-  }
-}
-
+.allsports-section .live-rail .arrow svg { width: 24px; height: 24px; }
+.allsports-section .live-rail .prev { left: -14px; }
+.allsports-section .live-rail .next { right: -14px; }
 @media (min-width: 768px) {
-  .allsports-section .live-rail .as-arrow {
-    width: 48px;
-    height: 48px;
-  }
-
-  .allsports-section .live-rail .as-arrow svg {
-    width: 26px;
-    height: 26px;
-  }
-
-  .allsports-section .live-rail .as-arrow.prev {
-    left: calc(8px - 4vw);
-  }
-
-  .allsports-section .live-rail .as-arrow.next {
-    right: calc(8px - 4vw);
-  }
-
-  .allsports-section .as-arrow.prev:hover {
-    transform: translateX(-3px);
-  }
-
-  .allsports-section .as-arrow.next:hover {
-    transform: translateX(3px);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .as-skeleton-thumb {
-    animation: none;
-  }
-
-  .allsports-section .live-rail .as-arrow {
-    transition: none;
-  }
+  .allsports-section .live-rail .arrow { width: 48px; height: 48px; }
+  .allsports-section .live-rail .arrow svg { width: 26px; height: 26px; }
+  .allsports-section .live-rail .prev { left: calc(8px - 4vw); }
+  .allsports-section .live-rail .next { right: calc(8px - 4vw); }
 }

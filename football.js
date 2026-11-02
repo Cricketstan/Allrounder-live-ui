@@ -1,11 +1,14 @@
 /* Football data loader: existing API and football?slug= player route. */
-(function () {
+(function bootFootball() {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootFootball, {once:true});
+    return;
+  }
   'use strict';
   const API = 'https://allrounderlive.com/api/football.json';
   const track = document.getElementById('allsportsTrack');
   if (!track) return;
   const section = track.closest('.allsports-section');
-  const count = document.getElementById('allsportsCount');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   let loaded = false, loading = false, visible = false, timer = null, rendered = null;
   const esc = value => String(value ?? '').replace(/[&<>"']/g,
@@ -86,12 +89,21 @@
       '<div class="thumb allsports-thumb"><div class="as-poster-content">' +
       '<div class="as-event-name" title="'+esc(name)+'">'+esc(name)+'</div>' +
       '<div class="as-teams">'+team(e.teamA || 'Team A',e,'A')+'<div class="as-vs">VS</div>'+team(e.teamB || 'Team B',e,'B')+'</div></div>' +
-      (state==='live'?'<span class="badge">LIVE</span>':'')+'</div>' +
+      (state==='live'?'<span class="badge">LIVE</span>':state==='upcoming'?'<span class="as-upcoming-icon" role="img" aria-label="Upcoming match" title="Upcoming match"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22a2.5 2.5 0 0 0 2.5-2.5h-5A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5-6.7V3a2 2 0 0 0-4 0v1.3A7 7 0 0 0 5 11v5l-2 2v1h18v-1z"/></svg></span>':'')+'</div>' +
       '<div class="caption"><span title="'+esc(name)+'">'+esc(name)+'</span>' +
-      '<span>'+esc((e.teamA || 'Team A')+' vs '+(e.teamB || 'Team B'))+'</span>' +
       '<span class="as-meta" title="'+esc(category+' · '+time(e))+'">'+esc(category+' · '+time(e))+'</span>' +
-      (state!=='live'?'<span class="as-state">'+esc(stateText)+'</span>':'')+'</div></a>';
+      '</div></a>';
   }
+  function updateArrows() {
+    const thumb = track.querySelector('.thumb');
+    const button = document.getElementById('allsportsPrev');
+    if (thumb && button) {
+      track.parentElement.style.setProperty('--as-arrow-top',
+        Math.max(0, (thumb.getBoundingClientRect().height - button.getBoundingClientRect().height) / 2) + 'px');
+    }
+  }
+  if ('ResizeObserver' in window) new ResizeObserver(updateArrows).observe(track);
+  window.addEventListener('resize', updateArrows, {passive:true});
   function skeleton() {
     track.innerHTML = Array.from({length:6},()=>'<div class="card as-skeleton-card" aria-hidden="true"><div class="thumb as-skeleton-thumb"></div><div class="caption"><div class="as-skeleton-line"></div><div class="as-skeleton-line"></div></div></div>').join('');
   }
@@ -121,13 +133,12 @@
         track.scrollLeft = left;
         rendered = html;
       }
-      count.textContent = String(events.length);
       loaded = true;
+      requestAnimationFrame(updateArrows);
     } catch (error) {
       console.error('[AllSports]',error);
       if (!loaded) {
         track.innerHTML='<div class="allsports-empty">Unable to load football events. <button type="button" class="as-retry">Retry</button></div>';
-        count.textContent='0';
       }
     } finally {
       clearTimeout(timeout);
@@ -141,7 +152,6 @@
   }
   document.getElementById('allsportsPrev').onclick=()=>scroll(-1);
   document.getElementById('allsportsNext').onclick=()=>scroll(1);
-  section.querySelector('.section-title button').onclick=()=>scroll(1);
   track.addEventListener('click',e=>{
     if(e.target.closest('.as-retry')) loadEvents();
     const a=e.target.closest('.allsports-card');
@@ -156,6 +166,8 @@
     open:slug=>{if(slug)location.href='football?slug='+encodeURIComponent(slug);},
     imageLoaded,imageFallback,reload:loadEvents
   };
+  loadEvents();
+
   function visibility(value) {
     visible=value;
     if(value) { if(!loaded&&!document.hidden)loadEvents(); start(); } else stop();

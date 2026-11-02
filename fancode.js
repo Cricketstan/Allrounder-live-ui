@@ -703,7 +703,7 @@
       // Keep your original player route.
 
       window.location.href =
-        '/fc-play?' + params.toString();
+        'fc-play?' + params.toString();
 
     } catch (error) {
       console.error(

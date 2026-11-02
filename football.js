@@ -1,7 +1,7 @@
 /* Football data loader: existing API and football?slug= player route. */
 (function () {
   'use strict';
-  const API = 'https://allrounderlive.in/api/football.json';
+  const API = 'https://allrounderlive.com/api/football.json';
   const track = document.getElementById('allsportsTrack');
   if (!track) return;
   const section = track.closest('.allsports-section');

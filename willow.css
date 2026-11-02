@@ -246,3 +246,18 @@
     transition: none;
   }
 }
+
+/* Willow team names — same as FanCode */
+
+#willow .caption > span:first-child {
+  color: #e2e3e8;
+  font-weight: 600;
+}
+
+/* Second line — series or match details */
+
+#willow .caption .wl-meta {
+  color: #93969f;
+  font-weight: 400;
+}
+

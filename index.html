@@ -8,6 +8,8 @@
     <link rel="preload" href="https://allrounderlive.com/font.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="football.css">
     <script defer src="football.js"></script>
+    <link rel="stylesheet" href="cricket.css">
+    <script defer src="cricket.js"></script>
     <style>
       @font-face {
         font-family: "Outfit";
@@ -1721,6 +1723,58 @@
           </button>
         </div>
       </section>
+      <section
+  class="live cricket-live-section"
+  id="cricket"
+  aria-label="Cricket matches"
+>
+  <h2 class="section-title">Cricket</h2>
+
+  <div class="live-rail">
+    <div
+      class="rail"
+      id="cricketLiveTrack"
+      aria-busy="false"
+    ></div>
+
+    <button
+      type="button"
+      class="arrow prev"
+      id="cricketLivePrev"
+      aria-label="Previous cricket matches"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="m15 4-8 8 8 8"></path>
+      </svg>
+    </button>
+
+    <button
+      type="button"
+      class="arrow next"
+      id="cricketLiveNext"
+      aria-label="Next cricket matches"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="m9 4 8 8-8 8"></path>
+      </svg>
+    </button>
+  </div>
+      </section>
+      
     </main>
     <div class="scrim" id="scrim"></div>
     <aside class="drawer" id="drawer" aria-hidden="true" aria-label="Main menu" inert>

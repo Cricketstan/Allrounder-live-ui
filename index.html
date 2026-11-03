@@ -4,7 +4,7 @@
     ><meta charset="UTF-8" /><meta
       name="viewport"
       content="width=device-width,initial-scale=1,viewport-fit=cover"
-    /><meta name="theme-color" content="#08090d" /><title>MATCHDEKHO · Live Sports</title>
+    /><meta name="theme-color" content="#08090d" /><title>Allrounder Live</title>
     <link rel="preload" href="https://allrounderlive.com/font.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="football.css">
     <script defer src="football.js"></script>
@@ -23,7 +23,227 @@
 <!-- MatchDekho Premium Footer -->
 <link rel="stylesheet" href="footer.css">
 <script defer src="footer.js"></script>
+<!-- ====== PERFORMANCE & SECURITY ====== -->
+<link rel="dns-prefetch" href="https://img.tod.tv" />
+<link rel="dns-prefetch" href="https://flagpedia.net" />
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+<!-- ====== THREE-DOMAIN SEO: MATCHDEKHO SEPARATE, ALLROUNDERLIVE .COM PREFERRED ====== -->
+<script>
+  const currentDomain = window.location.hostname.toLowerCase();
+  const isMatchDekho = currentDomain === 'matchdekho.in' ||
+                       currentDomain === 'www.matchdekho.in' ||
+                       currentDomain.includes('matchdekho');
+  const isAllrounderLive = !isMatchDekho;
 
+  // .in and .com share AllrounderLive identity; the preferred/indexable URL is .com.
+  // MatchDekho is kept strictly separate.
+  const siteName = isMatchDekho ? 'Match Dekho' : 'AllrounderLive';
+  const siteTitle = isMatchDekho ? 'Match Dekho' : 'AllrounderLive';
+  const siteUrl = isMatchDekho ? 'https://matchdekho.in/' : 'https://allrounderlive.com/';
+  const siteDescription = isMatchDekho
+    ? 'Match Dekho brings you live sports updates, football and cricket fixtures, match highlights, schedules, and real-time scores.'
+    : 'AllrounderLive (All Rounder Live) covers cricket, football, scores, fixtures and highlights. Looking for allrounderlive.in? Visit allrounderlive.com.';
+  const siteKeywords = isMatchDekho
+    ? 'Match Dekho, MatchDekho, matchdekho.in, live sports updates, football fixtures, cricket scores, match highlights, sports schedules'
+    : 'AllrounderLive, allrounder live, all rounder live, allrounder live.in, all rounder live in, all rounder live.in, allrounderlive.in, allrounder.live in, allrounderlive.com, cricket, football, live sports updates, scores, match highlights, sports schedules';
+  const twitterHandle = isMatchDekho ? '@matchdekho' : '@allrounderlive';
+  const sitePageTitle = isMatchDekho
+    ? 'Match Dekho | Live Sports Updates, Football, Cricket & Match Highlights'
+    : 'AllrounderLive (All Rounder Live) | Cricket & Football Updates';
+  const siteSocialTitle = isMatchDekho
+    ? 'Match Dekho | Live Sports Updates & Match Highlights'
+    : 'AllrounderLive | Live Cricket, Football & Live Sports';
+
+  function applyDomainSEO() {
+    document.title = sitePageTitle;
+
+    function updateMeta(selector, content) {
+      const element = document.querySelector(selector);
+      if (element) element.setAttribute('content', content);
+    }
+    function updateLink(selector, href) {
+      const element = document.querySelector(selector);
+      if (element) element.setAttribute('href', href);
+    }
+
+    updateMeta('meta[name="description"]', siteDescription);
+    updateMeta('meta[name="keywords"]', siteKeywords);
+    updateLink('link[rel="canonical"]', siteUrl);
+    updateMeta('meta[property="og:title"]', siteSocialTitle);
+    updateMeta('meta[property="og:description"]', siteDescription);
+    updateMeta('meta[property="og:url"]', siteUrl);
+    updateMeta('meta[property="og:site_name"]', siteTitle);
+    updateMeta('meta[property="og:image"]', siteUrl + 'images/og-image.jpg');
+    updateMeta('meta[name="twitter:title"]', siteSocialTitle);
+    updateMeta('meta[name="twitter:description"]', siteDescription);
+    updateMeta('meta[name="twitter:site"]', twitterHandle);
+    updateMeta('meta[name="twitter:creator"]', twitterHandle);
+    updateMeta('meta[name="twitter:image"]', siteUrl + 'images/og-image.jpg');
+    updateMeta('meta[name="author"]', siteTitle);
+    updateMeta('meta[name="application-name"]', siteTitle);
+    updateLink('link[rel="alternate"][hreflang="en"]', siteUrl);
+    updateLink('link[rel="alternate"][hreflang="en-IN"]', siteUrl);
+
+    updateSchemas(siteName, siteUrl, siteDescription);
+  }
+
+  function updateSchemas(name, url, description) {
+    const isMD = name === 'Match Dekho';
+    const social = isMD ? 'matchdekho' : 'allrounderlive';
+    const websiteSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      '@id': url + '#website',
+      'name': name,
+      'alternateName': isMD ? 'MatchDekho' : ['Allrounder Live', 'All Rounder Live', 'allrounderlive.com'],
+      'url': url,
+      'description': description,
+      'potentialAction': {
+        '@type': 'SearchAction',
+        'target': url + 'search?q={search_term_string}',
+        'query-input': 'required name=search_term_string'
+      }
+    };
+    const orgSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      '@id': url + '#organization',
+      'name': name,
+      'url': url,
+      'logo': url + 'images/logo.png',
+      'description': description,
+      'sameAs': [
+        'https://twitter.com/' + social,
+        'https://facebook.com/' + social,
+        'https://instagram.com/' + social,
+        'https://youtube.com/' + social
+      ]
+    };
+    const channelSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'BroadcastChannel',
+      'name': name + ' Sports Channel',
+      'description': 'Sports streaming, cricket and football updates.',
+      'broadcastDisplayName': name,
+      'genre': 'Sports',
+      'inLanguage': 'en'
+    };
+    const scripts = document.querySelectorAll('script[type="application/ld+json"]');
+    if (scripts.length >= 3) {
+      scripts[0].textContent = JSON.stringify(websiteSchema);
+      scripts[1].textContent = JSON.stringify(orgSchema);
+      scripts[2].textContent = JSON.stringify(channelSchema);
+    }
+  }
+</script>
+
+<!-- ====== STATIC META TAGS: .COM FALLBACK; MATCHDEKHO UPDATED BY JS ====== -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>AllrounderLive</title>
+<meta name="description" content="AllrounderLive covers cricket, football, scores, fixtures and highlights. Looking for allrounderlive.in? Visit allrounderlive.com." />
+<meta name="keywords" content="AllrounderLive, allrounder live, all rounder live, allrounder live.in, all rounder live in, all rounder live.in, allrounderlive.in, allrounder.live in, allrounderlive.com, cricket, football, live sports updates, scores, match highlights, sports schedules" />
+<link rel="canonical" href="https://allrounderlive.com/" />
+
+<!-- Open Graph (OG) Tags -->
+<meta property="og:title" content="AllrounderLive | Cricket, Football & Live Sports" />
+<meta property="og:description" content="AllrounderLive : cricket, football, scores, fixtures and highlights. Looking for allrounderlive.in? Visit allrounderlive.com." />
+<meta property="og:url" content="https://allrounderlive.com/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="AllrounderLive" />
+<meta property="og:image" content="https://allrounderlive.com/images/og-image.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="en_IN" />
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="AllrounderLive | Cricket, Football & Live Sports" />
+<meta name="twitter:description" content="AllrounderLive: cricket, football, live updates, fixtures and highlights at allrounderlive.com." />
+<meta name="twitter:image" content="https://allrounderlive.com/images/og-image.jpg" />
+<meta name="twitter:site" content="@allrounderlive" />
+<meta name="twitter:creator" content="@allrounderlive" />
+
+<!-- Additional SEO Tags -->
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+<meta name="googlebot" content="index, follow" />
+<meta name="bingbot" content="index, follow" />
+<link rel="alternate" hreflang="en" href="https://allrounderlive.com/" />
+<link rel="alternate" hreflang="en-IN" href="https://allrounderlive.com/" />
+
+<!-- ====== SCHEMA MARKUP (JSON-LD) ====== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://allrounderlive.com/#website",
+  "name": "AllrounderLive",
+  "alternateName": ["Allrounder Live", "All Rounder Live", "allrounderlive.com"],
+  "url": "https://allrounderlive.com/",
+  "description": "AllrounderLive (All Rounder Live): cricket, football, live sports updates, match fixtures, scores and highlights at allrounderlive.com.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://allrounderlive.com/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://allrounderlive.com/#organization",
+  "name": "AllrounderLive",
+  "url": "https://allrounderlive.com/",
+  "logo": "https://allrounderlive.com/images/logo.png",
+  "description": "Cricket, football and live sports updates."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BroadcastChannel",
+  "name": "AllrounderLive Sports Channel",
+  "description": "Sports streaming, cricket and football updates.",
+  "broadcastDisplayName": "AllrounderLive",
+  "genre": "Sports",
+  "inLanguage": "en"
+}
+</script>
+
+<!-- Apply domain-specific SEO immediately after the static fallback tags
+     and JSON-LD exist, before the page body is parsed. This ONE HTML file
+     works on matchdekho.in, allrounderlive.in and allrounderlive.com. -->
+<script>applyDomainSEO();</script>
+
+<!-- ====== VERIFICATION META TAGS ====== -->
+<meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE" />
+<meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE" />
+<meta name="yandex-verification" content="YOUR_YANDEX_VERIFICATION_CODE" />
+
+<!-- ====== PERFORMANCE & SECURITY ====== -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="dns-prefetch" href="https://img.tod.tv" />
+<link rel="dns-prefetch" href="https://flagpedia.net" />
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+
+<!-- ====== FAVICON & APPLE TOUCH ICON ====== -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="theme-color" content="#0b0d0f" />
+<meta name="author" content="AllrounderLive" />
+<meta name="application-name" content="AllrounderLive" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0PZNSQFRV7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-0PZNSQFRV7');
+</script>
 
 
 
